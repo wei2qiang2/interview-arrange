@@ -14,6 +14,14 @@
 
 `vagrant add boxname`(上个步骤下载的box) --name（指定名称） 
 
+2.2.9添加box命令
+
+`vagrant box add CentOS-7-x86_64-Vagrant-1902_01.VirtualBox.box --name centos_1`
+
+2.2.9移除box命令
+
+`vagrant box remove centos_1`
+
 查看box列表
 
 `vagrant box list`
@@ -29,6 +37,10 @@
 建立ssh连接
 
 `vagrant ssh`
+
+安装网络工具（ifconfig命令）
+
+`sudo yum install net-tools`
 
 修改网络配置（自带的是端口转发，相当于主机端口映射到虚拟机端口），修改Vagrantfile文件
 

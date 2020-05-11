@@ -11,13 +11,20 @@ $ sudo yum remove docker \
                   docker-latest-logrotate \
                   docker-logrotate \
                   docker-engine
+                  
 ```
 
 ```shell
 # 安装yum工具
-$ sudo yum install -y yum-utils
+$ sudo yum install -y yum-utils \
+  device-mapper-persistent-data \
+  lvm2
 # 配置docker下载地址
 $ sudo yum-config-manager \
+    --add-repo \
+    https://download.docker.com/linux/centos/docker-ce.repo
+    
+    yum-config-manager \
     --add-repo \
     https://download.docker.com/linux/centos/docker-ce.repo
 ```
@@ -58,11 +65,32 @@ $ sudo systemctl start docker
 sudo docker images
 # 开机自启动
 sudo systemctl enable docker
-# 配置docker镜像加速（默认从docker hub下载），阿里云镜像
+# 查看已有容器
+docker ps -a
+# docker启动的时候自动启动docker中的容器
+docker update redis --restart=always
+docker update mysql --restart=always
+# 下mysql5.7镜像
+docker pull mysql:5.7
 ```
+
+配置docker镜像加速（默认从docker hub下载），阿里云镜像
+
+![](F:\桌面文件\学习文件\images\docker镜像加速配置.png)
 
 ```shell
 $ sudo docker run hello-world
+```
+
+```shell
+sudo mkdir -p /etc/docker
+sudo tee /etc/docker/daemon.json <<-'EOF'
+{
+  "registry-mirrors": ["https://vvovjoni.mirror.aliyuncs.com"]
+}
+EOF
+sudo systemctl daemon-reload
+sudo systemctl restart docker
 ```
 
 ```shell
@@ -76,3 +104,7 @@ $ sudo systemctl start docker
 ```shell
 $ sudo docker run hello-world	
 ```
+
+npm配置淘宝镜像
+
+npm config set registry http://registry.npm.taobao.org/
