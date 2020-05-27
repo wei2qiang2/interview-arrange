@@ -108,3 +108,10 @@ $ sudo docker run hello-world
 npm配置淘宝镜像
 
 npm config set registry http://registry.npm.taobao.org/
+
+删除容器
+
+```shell
+docker rm -v 容器ID或者名称
+```
+
